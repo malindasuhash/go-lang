@@ -66,4 +66,9 @@ func main() { // Entrypoint note the absence of args, which is retrived via "Fla
 		fmt.Print(int) // Shadowing appears to be silent
 		var int2 int = 20 // This breaks because int now refers to a variable
 	*/
+
+	i := 1
+	i, j := 2, 3 // Note the re-declation of i. This is allowed as long as the it is done in a short declaration block.
+
+	fmt.Println(i, j)
 }
