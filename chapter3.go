@@ -38,4 +38,53 @@ func main() {
 	fmt.Printf("%10s # %5s", "Martin", "9")
 	fmt.Println()
 	fmt.Printf("%10s # %5.2f", "Martin", 9.784)
+	fmt.Println()
+
+	someValue := 10
+	double(float64(someValue))
+	fmt.Println(someValue)
+	fmt.Println("Address of someValue", &someValue, ", type is", reflect.TypeOf(&someValue)) // type = *int
+
+	var myInt int = 42
+	var myIntPointer = &myInt
+	*myIntPointer = 33 // New value
+	fmt.Println(myInt)
+
+	var simpleNmumber int = 10
+	var returnedAddOne = addOne(simpleNmumber)
+	fmt.Println("Returned value is", *returnedAddOne)
+	// addOneAddress := &addTwo <== Why does this not work?
+	acceptIntPointer(returnedAddOne)
+}
+
+func acceptIntPointer(intPointer *int) {
+	fmt.Println("intPointer value", intPointer)
+}
+
+func addTwo() {
+
+}
+
+func addOne(number int) *int {
+	number += 1
+	return &number
+}
+
+func double(number float64) { // Pass-by-value
+	number *= 2
+	fmt.Println("Doubled value", number)
+
+	var holdsPointerValue = &number
+	fmt.Println("Pointer type is", reflect.TypeOf(holdsPointerValue))
+
+	var secondaryPointerValue *float64 = holdsPointerValue // Assigning a pointer to another variable
+	fmt.Println("Secondary pointer value", secondaryPointerValue)
+
+	fmt.Println("Value at &secondaryPointerValue", *secondaryPointerValue) // Reading pointer value; *
+
+	*secondaryPointerValue = 30 // Update to the variable that pointer points to
+	fmt.Println("New value is", number)
+
+	// number => &number (get the pointer) => *(&number) (returns value)
+	fmt.Println("Value", *(&number))
 }
